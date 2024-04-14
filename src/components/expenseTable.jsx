@@ -30,7 +30,7 @@ const ExpenseTable=({tableHeadings,tableData})=> {
     console.log("---tabledate---",tableData)
 
     return (
-        <Root sx={{ width: 500, maxWidth: '100%' }} position="fixed" >
+        <Root sx={{ width: 500, maxWidth: '100%' }}  >
             <table aria-label="custom pagination table">
                 <thead>
                 <tr>

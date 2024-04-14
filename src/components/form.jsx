@@ -1,6 +1,7 @@
 import {Box, Button, Container, Grid} from "@mui/material";
 import ExpenseTable from "./expenseTable";
 import {useState} from "react";
+import Graph from "./graph";
 
 const Form = () => {
     const [tableData, setTableData] = useState([])
@@ -60,7 +61,11 @@ const Form = () => {
             {/*//TODO:- add input field to add tag*/}
             {/*<p>Tag</p>*/}
             {/*<input placeholder="Write your name here" required/>*/}
-            <ExpenseTable tableHeadings={tableHeadings} tableData={tableData}/>
+            <Grid columns={{xl: 2}} style={{display:"flex"}} container>
+                <ExpenseTable tableHeadings={tableHeadings} tableData={tableData}/>
+                <Graph tableData={tableData} />
+            </Grid>
+
         </div>
 
     )
