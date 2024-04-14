@@ -1,6 +1,5 @@
 import React from 'react';
-import { Container, AppBar, Toolbar, Typography, IconButton, Button, Menu, MenuItem, Hidden } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+import { Container } from '@mui/material';
 
 const NavBar = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);

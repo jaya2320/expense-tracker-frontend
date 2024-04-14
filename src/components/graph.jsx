@@ -33,26 +33,33 @@ const Graph = ({tableData}) => {
 
 
     return (
-        <Container sx={{typography: 'body1'}} position={"relative"}>
-            <PieChart
-                series={[
-                    {
-                        data: piedata,
-                        innerRadius: 3,
-                        outerRadius: 100,
-                        paddingAngle: 5,
-                        cornerRadius: 5,
-                        startAngle: -90,
-                        endAngle: 180,
-                        cx: 150,
-                        cy: 150,
-                    },
-                ]}
-                width={500}
-                height={300}
+        <Box sx={{typography: 'body1'}} position={"relative"} style={{paddingLeft:"200px",marginTop:"-60px"}}>
+            {piedata.length>0?
+                <PieChart
+                    series={[
+                        {
+                            data: piedata,
+                            innerRadius: 3,
+                            outerRadius: 100,
+                            paddingAngle: 5,
+                            cornerRadius: 5,
+                            startAngle: -90,
+                            endAngle: 180,
+                            cx: 150,
+                            cy: 150,
+                        },
+                    ]}
+                    width={400}
+                    height={300}
 
-            />
-        </Container>
+                />:
+                <Box align='center' width={400}
+                     height={300}>
+                    No Data to show
+                </Box>
+            }
+
+        </Box>
     );
 }
 export default Graph;

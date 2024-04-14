@@ -1,15 +1,13 @@
-
-
 import * as React from 'react';
 import { styled } from '@mui/system';
 import {
     TablePagination,
     tablePaginationClasses as classes,
 } from '@mui/base/TablePagination';
-import FirstPageRoundedIcon from '@mui/icons-material/FirstPageRounded';
-import LastPageRoundedIcon from '@mui/icons-material/LastPageRounded';
-import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
-import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import {Button, Table, TableBody, TableCell, TableContainer, TableHead, TableRow} from "@mui/material";
+
 
 const ExpenseTable=({tableHeadings,tableData})=> {
     const [page, setPage] = React.useState(0);
@@ -30,70 +28,56 @@ const ExpenseTable=({tableHeadings,tableData})=> {
     console.log("---tabledate---",tableData)
 
     return (
-        <Root sx={{ width: 500, maxWidth: '100%' }}  >
-            <table aria-label="custom pagination table">
-                <thead>
-                <tr>
-                    {Object.keys(tableHeadings).map((index)=>{
-                       return <th>{tableHeadings[index]}</th>
-                    })}
-                </tr>
-                </thead>
-                <tbody>
-                {(rowsPerPage > 0
-                        ? tableData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                        : tableData
-                ).map((row) => (
-                    <tr key={row.index}>
-                        <td>{row.date}</td>
-                        <td style={{ width: 120 }} align="right">
-                            {row.title}
-                        </td>
-                        <td style={{ width: 120 }} align="right">
-                            {row.description}
-                        </td>
-                         <td style={{ width: 120 }} align="right">
-                            {row.amount}
-                        </td>
-                    </tr>
-                ))}
+        <TableContainer style={{ maxHeight: 'fit-content', overflowY: 'auto'}}>
+            <Table aria-label="custom pagination table" style={{ borderCollapse: 'collapse' }}>
+                <TableHead>
+                    <TableRow>
+                        {Object.keys(tableHeadings).map((index) => {
+                            return <TableCell key={index} style={{ border: '1px solid #ddd', padding: '8px' }}>{tableHeadings[index]}</TableCell>
+                        })}
+                    </TableRow>
+                </TableHead>
+                <TableBody>
+                    {tableData.map((row, rowIndex) => (
+                        <TableRow key={rowIndex}>
+                            <TableCell style={{ border: '1px solid #ddd', padding: '8px', width: '25%' }}>{row.date}</TableCell>
+                            <TableCell style={{ border: '1px solid #ddd', padding: '8px', width: '15%' }} >{row.title}</TableCell>
+                            <TableCell style={{ border: '1px solid #ddd', padding: '8px', width: '120%', maxWidth: '100px', wordWrap: 'break-word' }} align="right">{row.description}</TableCell>
+                            <TableCell style={{ border: '1px solid #ddd', padding: '8px', width: '10%' }} >{row.amount}</TableCell>
+                            <TableCell style={{ border: '1px solid #ddd', padding: '8px', width: '5%' }} >
+                                <Button>
+                                    <ModeEditIcon />
+                                </Button>
+                            </TableCell>
+                            <TableCell style={{ border: '1px solid #ddd', padding: '8px', width: '5%' }} align="right">
+                                <Button>
+                                    <DeleteIcon />
+                                </Button>
+                            </TableCell>
+                        </TableRow>
+                    ))}
 
-                {emptyRows > 0 && (
-                    <tr style={{ height: 34 * emptyRows }}>
-                        <td colSpan={3} aria-hidden />
-                    </tr>
-                )}
-                </tbody>
-                <tfoot>
-                <tr>
-                    <CustomTablePagination
-                        rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                        colSpan={3}
-                        count={tableData.length}
-                        rowsPerPage={rowsPerPage}
-                        page={page}
-                        slotProps={{
-                            select: {
-                                'aria-label': 'rows per page',
-                            },
-                            actions: {
-                                showFirstButton: true,
-                                showLastButton: true,
-                                slots: {
-                                    firstPageIcon: FirstPageRoundedIcon,
-                                    lastPageIcon: LastPageRoundedIcon,
-                                    nextPageIcon: ChevronRightRoundedIcon,
-                                    backPageIcon: ChevronLeftRoundedIcon,
-                                },
-                            },
-                        }}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangeRowsPerPage}
-                    />
-                </tr>
-                </tfoot>
-            </table>
-        </Root>
+                    {emptyRows > 0 && (
+                        <TableRow style={{ height: 34 * emptyRows }}>
+                            <TableCell colSpan={6} aria-hidden />
+                        </TableRow>
+                    )}
+                <TableRow>
+                    <TableCell colSpan={6}>
+                        <CustomTablePagination
+                            rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
+                            colSpan={6}
+                            count={tableData.length}
+                            rowsPerPage={rowsPerPage}
+                            page={page}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangeRowsPerPage}
+                        />
+                    </TableCell>
+                </TableRow>
+            </TableBody>
+            </Table>
+        </TableContainer>
     );
 }
 
