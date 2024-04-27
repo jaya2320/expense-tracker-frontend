@@ -15,8 +15,8 @@ const Form = () => {
 
     const addNewExpense = (event) => {
         event.preventDefault();
-        if(event.target.elements.description.value.length>100){
-            setHelperText("Description should have max 100 characters")
+        if(event.target.elements.description.value.length>200){
+            setHelperText("Description should have max 200 characters")
         }else{
 
             const newTableData = [...tableData, {
